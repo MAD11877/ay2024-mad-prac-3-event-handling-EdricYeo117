@@ -1,6 +1,8 @@
 package sg.edu.np.mad.madpractical3;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    private Button buttonMessage;
+    private Button buttonFollow, buttonMessage;
     private boolean followed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        buttonMessage = findViewById(R.id.btnFollow);
+        buttonFollow = findViewById(R.id.btnFollow);
+        buttonMessage = findViewById(R.id.btnMessage);
         buttonMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MessageGroup.class);
+                startActivity(intent);
+            }
+        });
+        buttonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 followed = !followed;
@@ -63,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
     }
     private void updateButtonMessageText() {
         if (followed) {
-            buttonMessage.setText(R.string.button_unfollow_text);
+            buttonFollow.setText(R.string.button_unfollow_text);
         } else {
-            buttonMessage.setText(R.string.button_follow_text);
+            buttonFollow.setText(R.string.button_follow_text);
         }
 
     }
