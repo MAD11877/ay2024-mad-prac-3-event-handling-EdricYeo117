@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 followed = !followed;
                 updateButtonMessageText();
+
+                // Toast Message
+                String toastMessage = followed? "Followed": "Unfollowed";
+                Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -41,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
         TextView tvDescription = findViewById(R.id.tvDescription);
         Button btnFollow = findViewById(R.id.btnFollow);
 
-        // Set the TextViews with the User's name, description, deault button message
+        // Set the TextViews with the User's name, description, default button message
         tvName.setText(user.name);
+
+        // Display MAD + random integer
+        int randomNumber = getIntent().getIntExtra("randomNumber", 0);
+        String newName = "MAD " + randomNumber;
+        tvName.setText(newName);
         tvDescription.setText(user.description);
         btnFollow.setText(getString(R.string.button_follow_text));
+
+
 
         // Logic to update based on boolean
 
